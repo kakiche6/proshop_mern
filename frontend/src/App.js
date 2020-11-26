@@ -1,11 +1,17 @@
 import React from 'react';
+import Footer from './components/Footer';
+import Header from './components/Header';
 
-function App() {
+const App = () => {
   return (
     <>
-      <h1>Bienvenue à TiziShop</h1>
+      <Header />
+      <main>
+        <h1>Bienvenue à TiziShop</h1>
+      </main>
+      <Footer />
     </>
   );
-}
+};
 
 export default App;
