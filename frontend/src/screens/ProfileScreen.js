@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { getUserDetails, updateUserProfile } from '../actions/userActions';
+import { listMyOrders } from '../actions/orderActions';
 
 const ProfileScreen = ({ history }) => {
   const [name, setName] = useState('');
@@ -18,6 +19,9 @@ const ProfileScreen = ({ history }) => {
   const userDetails = useSelector(state => state.userDetails);
   const { loading, error, user } = userDetails;
 
+  const orderListMy = useSelector(state => state.orderListMy);
+  const { loading: loadingOrders, error: errorOrders, orders } = orderListMy;
+
   const userLogin = useSelector(state => state.userLogin);
   const { userInfo } = userLogin;
 
@@ -30,6 +34,7 @@ const ProfileScreen = ({ history }) => {
     } else {
       if (!user.name) {
         dispatch(getUserDetails('profile'));
+        dispatch(listMyOrders());
       } else {
         setName(user.name);
         setEmail(user.email);
@@ -105,7 +110,7 @@ const ProfileScreen = ({ history }) => {
           </Form>
         )}
       </Col>
-      {/* <Col md={9}>
+      <Col md={9}>
         <h2>My Orders</h2>
         {loadingOrders ? (
           <Loader />
@@ -124,7 +129,7 @@ const ProfileScreen = ({ history }) => {
               </tr>
             </thead>
             <tbody>
-              {orders.map((order) => (
+              {orders.map(order => (
                 <tr key={order._id}>
                   <td>{order._id}</td>
                   <td>{order.createdAt.substring(0, 10)}</td>
@@ -155,7 +160,7 @@ const ProfileScreen = ({ history }) => {
             </tbody>
           </Table>
         )}
-      </Col> */}
+      </Col>
     </Row>
   );
 };
